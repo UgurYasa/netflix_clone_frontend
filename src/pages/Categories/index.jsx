@@ -4,8 +4,10 @@ import { extractCategories } from "../../redux/filmSlice";
 import Card from "../../components/Card"
 
 export default function Categories() {
+  //REDUX
   const { categories } = useSelector((state) => state.film);
   const dispatch = useDispatch();
+  //USE EFFECTS
   useEffect(() => {
     dispatch(extractCategories());
   }, [categories]);

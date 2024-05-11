@@ -2,24 +2,25 @@ import { createSlice } from "@reduxjs/toolkit";
 import { FILMS } from "../constants/films";
 
 const initialState = {
-  films: FILMS.entries,
-  categories: [],
-  filteredFilms: [],
-  selectFilm: null,
-  sortOption: "",
-  search: "",
+  films: FILMS.entries,//Bütün filmleri al
+  categories: [],//Kategorileri al
+  filteredFilms: [],//Filtrelenmiş filmleri al
+  selectFilm: null,//Seçilen filmi al
+  sortOption: "",//Sıralama seçeneğini al
+  search: "",//Arama yaparken alınan veriyi al
   options: [
     "Yeniye Göre Sırala",
     "Eskiye Göre Sırala",
     "Puana Göre Sırala",
     "Rastgele Sırala",
-  ],
+  ],//Sıralama seçeneklerini al
 };
 
 const filmSlice = createSlice({
   name: "film",
   initialState,
   reducers: {
+    //Filmlerde bulunan kategorileri çıkar
     extractCategories: (state) => {
       if (!state.films || !Array.isArray(state.films)) {
         return; // terminate if there is no films array
@@ -59,13 +60,31 @@ const filmSlice = createSlice({
         (film) => film.programType === action.payload
       );
     },
+    // Arama yaparken filtrelenmiş filmleri listele
     setFilmsFilteredBySearch: (state) => {
       state.filteredFilms = state.films.filter((film) =>
         film.title
           .replaceAll(" ", "")
           .toLowerCase()
-          .includes(state.search.toLowerCase())
+          .includes(state.search.replaceAll(" ", "").toLowerCase())
       );
+    },
+    // Filmleri random sırala
+    createRandomList: (state) => {
+      state.filteredFilms = state.films.sort(() => Math.random() - 0.5);
+    },
+     // Filmleri yeniye göre sırala
+    createSortByNew: (state) => {
+      state.filteredFilms = state.films.sort(
+        (a, b) => b.releaseYear - a.releaseYear
+      );
+    },
+    // Filmleri eskiye göre sırala
+    createSortByOld: (state) => {
+      state.filteredFilms = state.films.sort(
+        (a, b) => a.releaseYear - b.releaseYear
+      );
+    
     },
   },
 });
@@ -77,5 +96,8 @@ export const {
   setSelectFilm,
   setFilmsFilteredByCategories,
   setFilmsFilteredBySearch,
+  createRandomList,
+  createSortByNew,
+  createSortByOld,
 } = filmSlice.actions;
 export default filmSlice.reducer;

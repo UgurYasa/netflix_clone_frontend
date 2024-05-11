@@ -7,16 +7,36 @@ import {
   setSearch,
   setSelectFilm,
   setSortOption,
+  createRandomList,
+  createSortByNew,
+  createSortByOld,
 } from "../../redux/filmSlice";
 import { useParams } from "react-router-dom";
 
 export default function Films() {
+  //PARAMS
   const { category } = useParams();
+  //REDUX
   const { filteredFilms, sortOption, options, search } = useSelector(
     (state) => state.film
   );
   const dispatch = useDispatch();
 
+  //USE EFFECTS
+  // Sort Option'a göre filmleri sırala
+  useEffect(() => {
+    if (sortOption === options[3]) {
+      dispatch(createRandomList());
+    } else if (sortOption === options[2]) {
+      //Burada  Puana göre sıralama yapılacak fakat veri setinde puan bilgisi olmadığı için random sıralama yapılacak
+      dispatch(createRandomList());
+    } else if (sortOption === options[1]) {
+      dispatch(createSortByOld());
+    } else {
+      dispatch(createSortByNew());
+    }
+  }, [sortOption]);
+  // Arama yaparken filtreleme
   useEffect(() => {
     search.length >= 3 &&
       dispatch(
@@ -24,6 +44,7 @@ export default function Films() {
       );
     search.length < 3 && dispatch(setFilmsFilteredByCategories(category));
   }, [search]);
+  // Kategoriye göre filtreleme
   useEffect(() => {
     dispatch(setFilmsFilteredByCategories(category));
   }, []);
@@ -35,6 +56,7 @@ export default function Films() {
       }`}
     >
       <div className="flex md:flex-row flex-col items-center md:justify-between">
+        {/* Search Input */}
         <input
           type="search"
           value={search}
@@ -44,7 +66,7 @@ export default function Films() {
           }}
           className="md:w-1/2 w-full h-10 rounded-xl p-4 my-5 border-2 border-gray-300"
         />
-
+        {/* Dropdown Menu */}
         <select
           value={sortOption}
           onChange={(event) => {
@@ -57,6 +79,7 @@ export default function Films() {
           })}
         </select>
       </div>
+      {/* Film List */}
       <div className="grid xl:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8 my-10">
         {filteredFilms &&
           filteredFilms.slice(0, 18).map((film) => (
