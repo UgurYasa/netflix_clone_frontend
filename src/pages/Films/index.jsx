@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card";
-import { setSearch, setSelectFilm, setSortOption } from "../../redux/filmSlice";
+import {
+  setFilmsFilteredByCategories,
+  setFilmsFilteredBySearch,
+  setSearch,
+  setSelectFilm,
+  setSortOption,
+} from "../../redux/filmSlice";
+import { useParams } from "react-router-dom";
 
 export default function Films() {
-  const { films, sortOption, options, search } = useSelector(
+  const { category } = useParams();
+  const { filteredFilms, sortOption, options, search } = useSelector(
     (state) => state.film
   );
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    console.log(search);
+  useEffect(() => {
+    search.length >= 3 &&
+      dispatch(
+        setFilmsFilteredBySearch({ search: search, category: category })
+      );
+    search.length < 3 && dispatch(setFilmsFilteredByCategories(category));
   }, [search]);
+  useEffect(() => {
+    dispatch(setFilmsFilteredByCategories(category));
+  }, []);
+
   return (
-    <div className="flex flex-col md:px-20 h-full w-full ">
+    <div
+      className={`flex flex-col md:px-20 w-full ${
+        filteredFilms.length >= 10 ? "h-full" : "h-screen"
+      }`}
+    >
       <div className="flex md:flex-row flex-col items-center md:justify-between">
         <input
           type="search"
@@ -38,8 +58,8 @@ export default function Films() {
         </select>
       </div>
       <div className="grid xl:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8 my-10">
-        {films &&
-          films.slice(0, 18).map((film) => (
+        {filteredFilms &&
+          filteredFilms.slice(0, 18).map((film) => (
             <div
               onClick={() => {
                 dispatch(setSelectFilm(film));

@@ -4,6 +4,7 @@ import { FILMS } from "../constants/films";
 const initialState = {
   films: FILMS.entries,
   categories: [],
+  filteredFilms: [],
   selectFilm: null,
   sortOption: "",
   search: "",
@@ -37,21 +38,44 @@ const filmSlice = createSlice({
         }
       });
     },
+    // dropdown üzerinden gelen veriyi setle
     setSortOption: (state, action) => {
       state.sortOption = action.payload;
     },
+    // Arama yaparken gelen veriyi setle
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    // Seçilen filmi filtrele
     setSelectFilm: (state, action) => {
       state.selectFilm = state.films.find(
         (film) =>
           film.title.replaceAll(" ", "_").toLowerCase() === action.payload
       );
     },
+    // Kategoriye göre filtrelenmiş filmleri listele
+    setFilmsFilteredByCategories: (state, action) => {
+      state.filteredFilms = state.films.filter(
+        (film) => film.programType === action.payload
+      );
+    },
+    setFilmsFilteredBySearch: (state) => {
+      state.filteredFilms = state.films.filter((film) =>
+        film.title
+          .replaceAll(" ", "")
+          .toLowerCase()
+          .includes(state.search.toLowerCase())
+      );
+    },
   },
 });
 
-export const { extractCategories, setSortOption, setSearch, setSelectFilm } =
-  filmSlice.actions;
+export const {
+  extractCategories,
+  setSortOption,
+  setSearch,
+  setSelectFilm,
+  setFilmsFilteredByCategories,
+  setFilmsFilteredBySearch,
+} = filmSlice.actions;
 export default filmSlice.reducer;

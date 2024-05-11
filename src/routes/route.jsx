@@ -8,7 +8,7 @@ export default function MainRoute() {
   return (
     <Routes>
       <Route path="/" element={<Categories />} />
-      <Route path="/films" element={<Films />} />
+      <Route path="/films/:category" element={<Films />} />
       <Route path="/film_detail/:id" element={<FilmDetail />} />{" "}
     </Routes>
   );

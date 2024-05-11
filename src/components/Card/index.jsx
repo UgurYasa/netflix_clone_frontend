@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
 export default function Card({ imageUrl, title, isCategory = false }) {
   const path = title.replaceAll(" ", "_").toLowerCase();
   return (
-    <Link to={isCategory ? "/films" : `/film_detail/${path}`} className="flex flex-col">
+    <Link
+      to={isCategory ? `/films/${path}` : `/film_detail/${path}`}
+      className="flex flex-col"
+    >
       <img
         src={imageUrl}
         alt={title}

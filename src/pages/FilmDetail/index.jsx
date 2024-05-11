@@ -11,13 +11,13 @@ export default function FilmDetail() {
     dispatch(setSelectFilm(id));
   }, [id]);
   return (
-    <div className="w-full h-full flex justify-center">
+    <div className="w-full h-screen flex justify-center my-5">
       {selectFilm && (
         <div className="flex lg:flex-row flex-col  w-full h-full gap-3 my-3 max-lg:items-center">
           <img
             src={selectFilm.images["Poster Art"].url}
             alt={selectFilm.title}
-            className="md:w-1/2 object-cover rounded-xl"
+            className="md:w-1/2 h-full md:object-fill object-contain rounded-xl"
           />
           <div className="flex flex-col gap-y-3 border-[1px] border-slate-400 rounded-xl my-3 p-3 ">
             <p className=" lg:text-3xl text-xl">
