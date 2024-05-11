@@ -14,7 +14,7 @@ export default function FilmDetail() {
     dispatch(setSelectFilm(id));
   }, [id]);
   return (
-    <div className="w-full h-screen flex justify-center my-5">
+    <div className="w-full max-sm:h-auto flex justify-center my-5">
 
       {selectFilm && (
         <div className="flex lg:flex-row flex-col  w-full h-full gap-3 my-3 max-lg:items-center">

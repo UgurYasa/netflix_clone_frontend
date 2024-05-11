@@ -12,7 +12,7 @@ export default function Categories() {
     dispatch(extractCategories());
   }, [categories]);
   return (
-    <div className="flex flex-col md:h-screen  w-full">
+    <div className="flex flex-col max-sm:h-auto h-screen w-full">
       <div className="grid xl:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8 my-10">
       {categories&&categories.map((category) => (
         <Card
