@@ -4,6 +4,7 @@ import { FILMS } from "../constants/films";
 const initialState = {
   films: FILMS.entries,
   categories: [],
+  selectFilm: null,
   sortOption: "",
   search: "",
   options: [
@@ -42,8 +43,15 @@ const filmSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    setSelectFilm: (state, action) => {
+      state.selectFilm = state.films.find(
+        (film) =>
+          film.title.replaceAll(" ", "_").toLowerCase() === action.payload
+      );
+    },
   },
 });
 
-export const { extractCategories, setSortOption,setSearch } = filmSlice.actions;
+export const { extractCategories, setSortOption, setSearch, setSelectFilm } =
+  filmSlice.actions;
 export default filmSlice.reducer;

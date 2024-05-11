@@ -8,21 +8,24 @@ import store from "./redux/store";
 import { useLocation } from "react-router-dom";
 function App() {
   const path = useLocation().pathname;
-  // "Popüler Başlıklar"
   return (
     <Provider store={store}>
-    <div className={`${path==="/"?"h-screen w-auto":"h-auto w-auto"} flex flex-col items-center justify-between`}>
-      {/* Header Başlangıcı */}
-      <Header />
-      {/* Subtitle Başlangıcı */}
-      <Subtitle title={path}/>
-      {/* React Router DOM ile değiştirilen kısım. */}
-      <div className=" w-full h-full px-20">
-        <MainRoute />
+      <div
+        className={`${
+          path === "/" ? "h-screen w-auto" : "h-auto w-auto"
+        } flex flex-col items-center justify-between`}
+      >
+        {/* Header Başlangıcı */}
+        <Header />
+        {/* Subtitle Başlangıcı */}
+        <Subtitle title="Popüler Başlıklar" />
+        {/* React Router DOM ile değiştirilen kısım. */}
+        <div className=" w-full h-full md:px-20 px-10">
+          <MainRoute />
+        </div>
+        {/* Footer Başlangıcı */}
+        <Footer />
       </div>
-      {/* Footer Başlangıcı */}
-      <Footer />
-    </div>
     </Provider>
   );
 }

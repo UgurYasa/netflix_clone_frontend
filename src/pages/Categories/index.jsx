@@ -8,10 +8,10 @@ export default function Categories() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(extractCategories());
-  }, []);
+  }, [categories]);
   return (
-    <div className="flex flex-col h-screen w-full bg-slate-300 p-5">
-      <div className="grid grid-cols-6 gap-x-4">
+    <div className="flex flex-col md:h-screen  w-full">
+      <div className="grid xl:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8 my-10">
       {categories&&categories.map((category) => (
         <Card
           imageUrl={category.categoriesImage}

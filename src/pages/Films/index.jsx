@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card";
-import { setSearch, setSortOption } from "../../redux/filmSlice";
+import { setSearch, setSelectFilm, setSortOption } from "../../redux/filmSlice";
 
 export default function Films() {
   const { films, sortOption, options, search } = useSelector(
@@ -39,15 +39,19 @@ export default function Films() {
       </div>
       <div className="grid xl:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-8 my-10">
         {films &&
-          films
-            .slice(0, 18)
-            .map((film) => (
+          films.slice(0, 18).map((film) => (
+            <div
+              onClick={() => {
+                dispatch(setSelectFilm(film));
+              }}
+            >
               <Card
                 imageUrl={film.images["Poster Art"].url}
                 title={film.title}
                 isCategory={false}
               />
-            ))}
+            </div>
+          ))}
       </div>
     </div>
   );
