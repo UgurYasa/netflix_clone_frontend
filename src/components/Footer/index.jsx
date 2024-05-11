@@ -11,17 +11,27 @@ export default function Footer() {
     <div className="flex flex-col max-sm:p-1 p-5 bg-black w-full border-b-2 items-start md:px-16">
       {/* Footer Links*/}
       <div className="flex flex-row items-center gap-x-2 w-full max-md:px-6">
-        <Link to={"/"} className="text-white tex-base"> AnaSayfa</Link>
+        <Link to={"/"} className="text-white tex-base">
+          {" "}
+          AnaSayfa
+        </Link>
         <p className="text-white">|</p>
-        <Link to={"/"} className="text-white">Kullanıcı Çözmesi</Link>
+        <Link to={"/kullanici-sozlesmesi"} className="text-white">
+          Kullanıcı Çözmesi
+        </Link>
         <p className="text-white">|</p>
-        <Link to={"/"} className="text-white">Gizlilik Sözleşmesi</Link>
+        <Link to={"/gizlilik-sozlesmesi"} className="text-white">
+          Gizlilik Sözleşmesi
+        </Link>
       </div>
       {/* Social Media Icons */}
       <div className="flex flex-row items-center p-2 gap-x-2 max-md:px-6">
-        <a href={facebookUrl} target="_blank"><TiSocialFacebook className="text-white text-2xl" /></a>
-        <a href={twitterUrl} target="_blank"><FaTwitter className="text-white text-2xl" /></a>
-        
+        <a href={facebookUrl} target="_blank">
+          <TiSocialFacebook className="text-white text-2xl" />
+        </a>
+        <a href={twitterUrl} target="_blank">
+          <FaTwitter className="text-white text-2xl" />
+        </a>
       </div>
     </div>
   );
