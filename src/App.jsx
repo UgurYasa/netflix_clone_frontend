@@ -5,16 +5,19 @@ import Subtitle from "./components/Subtitle";
 import MainRoute from "./routes/route";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { useLocation } from "react-router-dom";
 function App() {
+  const path = useLocation().pathname;
+  // "Popüler Başlıklar"
   return (
     <Provider store={store}>
-    <div className=" h-screen w-screen flex flex-col items-center justify-between">
+    <div className={`${path==="/"?"h-screen w-auto":"h-auto w-auto"} flex flex-col items-center justify-between`}>
       {/* Header Başlangıcı */}
       <Header />
       {/* Subtitle Başlangıcı */}
-      <Subtitle title="Popüler Başlıklar"/>
+      <Subtitle title={path}/>
       {/* React Router DOM ile değiştirilen kısım. */}
-      <div className=" w-full h-full">
+      <div className=" w-full h-full px-20">
         <MainRoute />
       </div>
       {/* Footer Başlangıcı */}

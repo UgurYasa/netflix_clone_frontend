@@ -9,14 +9,14 @@ export default function Categories() {
   useEffect(() => {
     dispatch(extractCategories());
   }, []);
-  console.log(categories);
   return (
-    <div className="flex flex-col h-full w-full bg-slate-300 p-5">
+    <div className="flex flex-col h-screen w-full bg-slate-300 p-5">
       <div className="grid grid-cols-6 gap-x-4">
-      {categories.map((category) => (
+      {categories&&categories.map((category) => (
         <Card
           imageUrl={category.categoriesImage}
           title={category.categoriesName}
+          isCategory={true}
         />
       ))}
       </div>
