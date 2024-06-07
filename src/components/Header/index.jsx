@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <div className="flex flex-row p-4 bg-black items-center justify-between border-t-2 w-full md:px-16">
       <Link to="/">
-        <h1 className="text-3xl text-white font-bold">BulutMD</h1>
+        <h1 className="text-3xl text-white font-bold">Netflix</h1>
       </Link>
       <div className="flex flex-row items-center gap-x-5">
         <p
